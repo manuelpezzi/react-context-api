@@ -1,25 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, } from "react";
 
 import { useParams, useNavigate } from "react-router-dom";
 
+import { useGlobalContext } from "../context/GlobalContext";
+
 function SinglePost() {
     const { id } = useParams();
-    const [post, setPost] = useState({
-        id: "",
-        title: "",
-        content: "",
-        image: "",
-        tags: []
-    });
+    const { post, getPostById } = useGlobalContext();
+    const navigate = useNavigate();
+
+
 
     useEffect(() => {
-        fetch(`http://localhost:3000/posts/${id}`)
-            .then(response => response.json())
-            .then(data => setPost(data))
-            .catch(error => console.error("errore nel caricamento dei post:", error));
+        getPostById(id);
     }, [id]);
 
-    const navigate = useNavigate();
     return (
         <div className="container mt-4">
             <h1>Dettaglio del Post: {id}</h1>

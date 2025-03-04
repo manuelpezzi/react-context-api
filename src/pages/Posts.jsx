@@ -1,13 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-
+import { useGlobalContext } from "../context/GlobalContext";
 function Posts() {
-    const [posts, setPosts] = useState([]);
+    const { posts, fetchPosts } = useGlobalContext();
+
+
     useEffect(() => {
-        fetch("http://localhost:3000/posts")
-            .then(response => response.json())
-            .then(data => setPosts(data))
-            .catch(erorr => console.error("Errore nel caricamento dei post", erorr))
+        fetchPosts()
     }, []);
     return (
         <div className="container mt-4">

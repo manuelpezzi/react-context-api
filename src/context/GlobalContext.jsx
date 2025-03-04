@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+
 import { createContext, useState, useContext } from 'react';
 
 const GlobalContext = createContext();
@@ -7,7 +7,7 @@ const GlobalProvider = ({ children }) => {
 
     const [posts, setPosts] = useState([]);
 
-    const [singlePost, setSinglePost] = useState({
+    const [post, setPost] = useState({
         id: '',
         title: '',
         content: '',
@@ -26,13 +26,13 @@ const GlobalProvider = ({ children }) => {
     const getPostById = (id) => {
         fetch(`http://localhost:3000/posts/${id}`)
             .then(res => res.json())
-            .then(data => setSinglePost(data))
+            .then(data => setPost(data))
             .catch(error => console.error("Errore nel caricamento del post:", error));
     };
 
     const value = {
         posts,
-        singlePost,
+        post,
         fetchPosts,
         getPostById
     }
